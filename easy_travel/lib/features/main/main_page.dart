@@ -1,3 +1,4 @@
+import 'package:easy_travel/features/home/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -9,13 +10,16 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final List<Widget> _pages = [Text("Home"), Text("Favorites"), Text("Profile")];
+  final List<Widget> _pages = const [
+    HomePage(),
+    Text("Favorites"),
+    Text("Profile"),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Center(child: _pages[_selectedIndex]),
+      body: SafeArea(child: _pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onIndexChanged,
         currentIndex: _selectedIndex,

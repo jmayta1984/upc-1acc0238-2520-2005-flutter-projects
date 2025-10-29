@@ -1,4 +1,4 @@
-import 'package:easy_travel/main_page.dart';
+import 'package:easy_travel/features/main/main_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
             width: double.infinity,
             child: FilledButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MainPage()),
                 );
