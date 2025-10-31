@@ -1,8 +1,8 @@
 import 'package:easy_travel/features/home/data/destination_service.dart';
 import 'package:easy_travel/features/home/domain/category.dart';
 import 'package:easy_travel/features/home/domain/destination.dart';
-import 'package:easy_travel/features/home/presentation/destination_card.dart';
-import 'package:easy_travel/features/home/presentation/destination_detail_page.dart';
+import 'package:easy_travel/features/home/presentation/widgets/destination_card.dart';
+import 'package:easy_travel/features/home/presentation/pages/destination_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
