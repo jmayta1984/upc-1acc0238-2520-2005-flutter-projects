@@ -11,13 +11,18 @@ class DestinationService {
 
   Future<List<Destination>> getDestinations(CategoryType category) async {
     final String query = category == CategoryType.all ? '' : category.label;
-    final response = await http.get(Uri.parse('$baseUrl?type=$query'));
 
-    if (response.statusCode == HttpStatus.ok) {
-      final json = jsonDecode(response.body);
-      List maps = json['results'];
-      return maps.map((json) => Destination.fromJson(json)).toList();
+    try {
+      final response = await http.get(Uri.parse('$baseUrl?type=$query'));
+
+      if (response.statusCode == HttpStatus.ok) {
+        final json = jsonDecode(response.body);
+        List maps = json['results'];
+        return maps.map((json) => Destination.fromJson(json)).toList();
+      }
+      return Future.error('Error: ${response.statusCode}');
+    } catch (e) {
+      return Future.error('Error: ${e.toString()}');
     }
-    return [];
   }
 }

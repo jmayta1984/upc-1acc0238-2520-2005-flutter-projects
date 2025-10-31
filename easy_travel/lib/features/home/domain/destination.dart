@@ -12,6 +12,9 @@ class Destination {
   });
 
   factory Destination.fromJson(Map<String, dynamic> json) {
+    if (json['id'] == null) throw ('id is null');
+    if (json['title'] == null) throw ('title is null');
+
     return Destination(
       id: json['id'],
       title: json['title'],
