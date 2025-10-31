@@ -1,4 +1,5 @@
 import 'package:easy_travel/features/home/data/destination_service.dart';
+import 'package:easy_travel/features/home/domain/category.dart';
 import 'package:easy_travel/features/home/domain/destination.dart';
 import 'package:easy_travel/features/home/presentation/destination_card.dart';
 import 'package:easy_travel/features/home/presentation/destination_detail_page.dart';
@@ -14,15 +15,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Destination> _destinations = [];
 
-  final List<String> _categories = [
-    'All',
-    'Beach',
-    'Adventure',
-    'City',
-    'Cultural',
-  ];
+  final  _categories = CategoryType.values;
 
-  String _selectedCategory = 'All';
+  CategoryType _selectedCategory = CategoryType.all;
   @override
   void initState() {
     _loadData();
@@ -47,10 +42,10 @@ class _HomePageState extends State<HomePage> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              final String category = _categories[index];
+              final CategoryType category = _categories[index];
               return FilterChip(
                 selected: _selectedCategory == category,
-                label: Text(category),
+                label: Text(category.label),
                 onSelected: (value) {
                   setState(() {
                     _selectedCategory = category;
