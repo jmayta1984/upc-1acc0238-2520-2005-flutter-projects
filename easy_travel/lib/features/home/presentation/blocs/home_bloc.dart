@@ -19,13 +19,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       return;
     }
 
-    emit(state.copyWith(isLoading: true, selectedCategory: event.category));
+    emit(state.copyWith(status: Status.loading, selectedCategory: event.category));
 
     try {
       final destinations = await service.getDestinations(event.category);
-      emit(state.copyWith(isLoading: false, destinations: destinations));
+      emit(state.copyWith(status: Status.success, destinations: destinations));
     } catch (e) {
-      emit(state.copyWith(isLoading: false, message: e.toString()));
+      emit(state.copyWith(status: Status.failure, message: e.toString()));
     }
   }
 }

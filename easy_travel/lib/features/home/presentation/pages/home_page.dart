@@ -45,35 +45,40 @@ class HomePage extends StatelessWidget {
               BlocSelector<
                 HomeBloc,
                 HomeState,
-                (bool, String, List<Destination>)
+                (Status, String?, List<Destination>)
               >(
                 selector: (state) =>
-                    (state.isLoading, state.message, state.destinations),
+                    (state.status, state.message, state.destinations),
                 builder: (context, state) {
-                  final (isLoading, message, destinations) = state;
-                  if (isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+                  final (status, message, destinations) = state;
+                  switch (status) {
+                    case Status.loading:
+                      return const Center(child: CircularProgressIndicator());
 
-                  if (message.isNotEmpty) {
-                    return Center(child: Text(message));
-                  }
-                  return ListView.builder(
-                    itemCount: destinations.length,
-                    itemBuilder: (context, index) {
-                      final Destination destination = destinations[index];
-                      return GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                DestinationDetailPage(destination: destination),
-                          ),
-                        ),
-                        child: DestinationCard(destination: destination),
+                    case Status.failure:
+                      return Center(child: Text(message ?? 'Unexpected error'));
+
+                    case Status.success:
+                      return ListView.builder(
+                        itemCount: destinations.length,
+                        itemBuilder: (context, index) {
+                          final Destination destination = destinations[index];
+                          return GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DestinationDetailPage(
+                                  destination: destination,
+                                ),
+                              ),
+                            ),
+                            child: DestinationCard(destination: destination),
+                          );
+                        },
                       );
-                    },
-                  );
+                    default:
+                      return SizedBox.shrink();
+                  }
                 },
               ),
         ),
