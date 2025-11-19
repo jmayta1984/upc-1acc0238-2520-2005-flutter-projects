@@ -1,6 +1,9 @@
 import 'package:easy_travel/core/enums/status.dart';
+import 'package:easy_travel/features/home/data/comment_service.dart';
 import 'package:easy_travel/features/home/domain/category.dart';
 import 'package:easy_travel/features/home/domain/destination.dart';
+import 'package:easy_travel/features/home/presentation/blocs/comment_bloc.dart';
+import 'package:easy_travel/features/home/presentation/blocs/comment_event.dart';
 import 'package:easy_travel/features/home/presentation/blocs/home_bloc.dart';
 import 'package:easy_travel/features/home/presentation/blocs/home_event.dart';
 import 'package:easy_travel/features/home/presentation/blocs/home_state.dart';
@@ -68,8 +71,17 @@ class HomePage extends StatelessWidget {
                             onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DestinationDetailPage(
-                                  destination: destination,
+                                builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      CommentBloc(service: CommentService())
+                                        ..add(
+                                          GetCommentsByDestination(
+                                            id: destination.id,
+                                          ),
+                                        ),
+                                  child: DestinationDetailPage(
+                                    destination: destination,
+                                  ),
                                 ),
                               ),
                             ),
