@@ -18,6 +18,7 @@ class CommentList extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           case Status.success:
             return ListView.builder(
+              padding: EdgeInsets.zero,
               itemCount: state.comments.length,
               itemBuilder: (context, index) {
                 final Comment comment = state.comments[index];

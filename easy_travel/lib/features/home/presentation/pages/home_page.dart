@@ -1,5 +1,4 @@
 import 'package:easy_travel/core/enums/status.dart';
-import 'package:easy_travel/features/home/data/comment_service.dart';
 import 'package:easy_travel/features/home/domain/category.dart';
 import 'package:easy_travel/features/home/domain/destination.dart';
 import 'package:easy_travel/features/home/presentation/blocs/comment_bloc.dart';
@@ -68,23 +67,19 @@ class HomePage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final Destination destination = destinations[index];
                           return GestureDetector(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BlocProvider(
-                                  create: (context) =>
-                                      CommentBloc(service: CommentService())
-                                        ..add(
-                                          GetCommentsByDestination(
-                                            id: destination.id,
-                                          ),
-                                        ),
-                                  child: DestinationDetailPage(
+                            onTap: () {
+                              context.read<CommentBloc>().add(
+                                GetCommentsByDestination(id: destination.id),
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DestinationDetailPage(
                                     destination: destination,
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                             child: DestinationCard(destination: destination),
                           );
                         },

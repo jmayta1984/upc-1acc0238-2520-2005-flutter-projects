@@ -27,7 +27,23 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     }
   }
 
-  FutureOr<void> _addComment(AddComment event, Emitter<CommentState> emit) {
-    
+  FutureOr<void> _addComment(
+    AddComment event,
+    Emitter<CommentState> emit,
+  ) async {
+
+    try {
+      await service.addComment(
+        event.destinationId,
+        event.comment,
+        event.rating,
+      );
+      List<Comment> comments = await service.getCommentsByDestination(
+        event.destinationId,
+      );
+      emit(state.copyWith(status: Status.success, comments: comments));
+    } catch (e) {
+      emit(state.copyWith(status: Status.failure, message: e.toString()));
+    }
   }
 }
