@@ -9,7 +9,11 @@ class CategoryRepositoryImpl implements CategoryRepository {
   const CategoryRepositoryImpl({required this.service});
   @override
   Future<List<Category>> getAllCategories() async {
-    final List<CategoryDto> dtos = await service.getAllCategories();
-    return dtos.map((dto) => dto.toDomain()).toList();
+    try {
+      final List<CategoryDto> dtos = await service.getAllCategories();
+      return dtos.map((dto) => dto.toDomain()).toList();
+    } catch (e) {
+      rethrow;
+    }
   }
 }
