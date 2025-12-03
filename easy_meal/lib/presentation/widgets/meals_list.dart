@@ -18,12 +18,16 @@ class MealsList extends StatelessWidget {
           case Status.success:
             return ListView.builder(
               padding: EdgeInsets.zero,
-              itemCount: state.meals.length,
+              itemCount: state.meals.length + 1,
               itemBuilder: (context, index) {
-                final meal = state.meals[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: MealCard(meal: meal),
+                  child: index == 0
+                      ? Text(
+                          'Meals',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        )
+                      : MealCard(meal: state.meals[index - 1]),
                 );
               },
             );

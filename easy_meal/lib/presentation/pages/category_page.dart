@@ -28,23 +28,26 @@ class CategoryPage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Description',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      ExpandableText(
-                        category.description,
-                        expandText: 'Show more',
-                        collapseText: 'Show less',
-                        maxLines: 3,
-                      ),
-                    ],
+              child: SizedBox(
+                width: double.infinity,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Description',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        ExpandableText(
+                          category.description,
+                          expandText: 'Show more',
+                          collapseText: 'Show less',
+                          maxLines: 3,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
